@@ -17,7 +17,7 @@ Game::Game(char player_type, int max_life, int damage, char *config_file_path) {
     }
 
     char tmp_id[] = "-1";
-    this->first_room = new Room(tmp_id, 0, 0, 0);
+    this->first_room = new Room(tmp_id, 0,'N', 0, 0);
     this->initGame(config_file_path);
 }
 

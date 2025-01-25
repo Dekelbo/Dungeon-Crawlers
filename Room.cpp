@@ -96,9 +96,14 @@ Room &Room::operator=(const Room &other) {
     this->estimated_count_of_rooms = other.estimated_count_of_rooms;
 
     // Deep copy the monster
-    if (other.monster) {
-        this->monster = new Entity(*other.monster);
-    } else {
+
+    if (strcmp(other.getMonster()->getName(),"Dragon") == 0) {
+        this->monster = new Dragon(*static_cast<Dragon*>(other.monster));
+    }
+    else if (strcmp(other.getMonster()->getName(),"Goblin") == 0) {
+        this->monster = new Goblin(*static_cast<Goblin*>(other.monster));
+    }
+    else {
         this->monster = nullptr;
     }
 
