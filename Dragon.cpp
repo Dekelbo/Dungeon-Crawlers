@@ -6,5 +6,5 @@ Dragon::~Dragon() {
 }
 
 int Dragon::attack() {
-
+    return this->fighting_who->attackedByDragon();
 }

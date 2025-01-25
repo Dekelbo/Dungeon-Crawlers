@@ -8,7 +8,7 @@ class Goblin : public Monster {
 public:
     Goblin(int max_life, int damage);
     virtual ~Goblin();
-    virtual void attack();
+    virtual int attack();
 
 };
 

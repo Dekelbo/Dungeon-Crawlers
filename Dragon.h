@@ -1,4 +1,3 @@
-
 #ifndef DRAGON_H
 #define DRAGON_H
 #include "Monster.h"
