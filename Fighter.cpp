@@ -24,6 +24,6 @@ int Fighter::attackedByGoblin() {
 }
 
 int Fighter::attack() {
-    this->special_attack_wait = (this->special_attack_wait + 1) % WAITING_TIME; // update the turns - range 0-4
+    this->updateTurn(); // update the turns - range 0-4
     return this->fighting_who->attacked();
 }

@@ -1,6 +1,7 @@
 #ifndef ROOM_H
 #define ROOM_H
 #include "Entity.h"
+#include "Monster.h"
 
 class Room {
 
@@ -9,7 +10,7 @@ class Room {
     Room* rooms;        // array of Room pointers
     int roomCount;      // Current number of rooms in array
     int estimated_count_of_rooms; // count of rooms - will be filled in the end of config file
-    Entity *monster;
+    Monster *monster;
 
 public:
 
@@ -44,7 +45,7 @@ public:
     int getEstimatedCountOfRooms() const;
 
     // Getter for monster
-    Entity *getMonster() const;
+    Monster *getMonster() const;
 
     // Getter for fire
     int getFire() const;

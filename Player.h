@@ -18,6 +18,8 @@ public:
     virtual int attackedByDragon() = 0; // player is attacked by a dragon - pure virtual
     virtual int attackedByGoblin() = 0; // player is attacked by a goblin - pure virtual
     virtual int attack() = 0; // player attacks - pure virtual
+    void updateTurn();  //update turn for special power
+    void set_fighting_who(Monster* fighting_who); // update the monster that the player is fighting with
 
 };
 

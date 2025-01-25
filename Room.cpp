@@ -161,7 +161,7 @@ int Room::getFire() const {
 }
 
 // Getter for monster
-Entity *Room::getMonster() const {
+Monster *Room::getMonster() const {
     return this->monster;
 }
 

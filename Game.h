@@ -8,7 +8,7 @@
 class Game {
 
     Room *first_room;
-    Entity *player;
+    Player *player;
 
 public:
     //constructor

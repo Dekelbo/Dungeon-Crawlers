@@ -15,7 +15,7 @@ int Sorcerer::attackedByGoblin() {
 }
 
 int Sorcerer::attack() {
-    this->special_attack_wait = (this->special_attack_wait + 1) % WAITING_TIME; // update the turns - range 0-4
+    this->updateTurn(); // update the turns - range 0-4
     if (special_attack_wait == 1) {
 		this->damage *= 2; // special power is on, double damage
 	}

@@ -73,8 +73,8 @@ void Game:: initGame(char *config_file_path) {
 
         // no monster - Room responsible to put nullptr in Monster
         else if(monster_type == 'N') {
-            monster_max_life = 0;
-            damage = 0;
+            monster_max_life = -1;
+            damage = -1;
         }
 
         //new room
@@ -107,22 +107,17 @@ void Game:: initGame(char *config_file_path) {
 void Game:: start() {
     int input;
     cout << *this->player << endl;
-    cout << "I see you like challenges, by how much do you want to reduce your damage?" << endl;
-    cin >> input;
-
-    //new damage of player
-    this->player->setDamage(this->player->getDamage() - input);
-    cout << *this->player << endl;
 
     //first room
     Room* current_room = first_room;
+    // the monster in the room
+    Monster *current_monster = current_room->getMonster();
 
     // the game loop
     while(true)
     {
         // monster and fire in current room
         int fire = current_room->getFire();
-        int mon_life = current_room->getMonster()->getCurrentLife();
 
         if(current_room->isEmpty())
         {
@@ -135,11 +130,18 @@ void Game:: start() {
             if(fire != 0){
                 cout << "You sit by the campfire and heal " << fire << " health" << endl;
                 *this->player += fire;
+
+                // update turn for special power
+                this->player->updateTurn();
             }
 
+
             // encountering a monster
-            else if(mon_life != 0)
+            else if(current_monster != nullptr)
             {
+                this->player->set_fighting_who(current_monster);
+                current_monster->set_fighting_who(this->player);
+
                 //player is stronger
                 if(*this->player > *current_room->getMonster())
                 {
@@ -210,6 +212,10 @@ void Game:: start() {
 
         //enter next room
         current_room = &(*current_room)[input];
+
+        // update turn for special power
+        this->player->updateTurn();
+
         cout << *this->player << endl;
     }
 

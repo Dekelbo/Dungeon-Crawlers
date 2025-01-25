@@ -11,6 +11,8 @@ public:
     using Entity::Entity; // constructors from Entity
     virtual ~Monster();
     int attacked(); // all monsters are attacked the same way
+    void set_fighting_who(Player* fighting_who);
+
 
 };
 
