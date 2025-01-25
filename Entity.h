@@ -2,12 +2,14 @@
 #define ENTITY_H
 #include <ostream>
 
-
+// abstract
 class Entity {
+protected:
     char* name;
     int max_life;
     int current_life;
     int damage;
+    Entity *fighting_who = nullptr; // who is the entity fighting at the moment
 
 public:
 
@@ -23,7 +25,8 @@ public:
     int getCurrentLife() const;
     char *getName() const;
 
-    virtual void attack() = 0; // pure virtual - no instance of Entity
+    virtual int attacked() = 0; // pure virtual - no instance of Entity
+    virtual int attack() = 0; // pure virtual - no instance of Entity
 
     //current_life+=num
     void operator+= (int num);

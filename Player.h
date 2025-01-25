@@ -3,14 +3,18 @@
 #define PLAYER_H
 #include "Entity.h"
 
+#define WAITING_TIME 5 // can use special power once in 5 turns
 
+// abstract
 class Player : public Entity {
-
+protected:
+    int special_attack_wait = 0; // 0  - power is off and turns it on,  1 - can use the power because power is on, 2-4  power is off)
 
 public:
-    Player(const char* name, int max_life, int damage);
+    Player(const char* name, int max_life, int damage); // calls entity's constructor
     virtual ~Player();
-    virtual int special_power() = 0;
+    virtual int attacked() = 0; // player is attacked - pure virtual
+    virtual int attack() = 0; // player attacks - pure virtual
 
 };
 

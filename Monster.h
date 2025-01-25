@@ -2,7 +2,7 @@
 #define MONSTER_H
 #include "Entity.h"
 
-
+// abstract
 class Monster :public Entity {
 public:
     using Entity::Entity; // constructors from Entity
