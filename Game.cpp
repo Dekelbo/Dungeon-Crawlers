@@ -88,7 +88,11 @@ void Game:: initGame(char *config_file_path) {
         for (int i = 0; i < id_len-1; i++)
         {
             int current_digit = id[i] - '0';
-            current_room = &((*current_room)[current_digit]);
+            try {
+                current_room = &((*current_room)[current_digit]);
+            }
+            catch () {
+            }
         }
 
         // Add the new room to the appropriate subroom
@@ -103,20 +107,49 @@ void Game:: initGame(char *config_file_path) {
     fclose(config_file);
 }
 
+enum fight_status {
+    KEEP_PLAYING,
+    END_ROUND,
+    END_GAME
+};
+
+fight_status fightRound(Player &player, Monster &monster)
+{
+    // player attacks
+    cout << "You deal " << player.attack() << " damage to the " << monster.getName() << " and leave it with " << monster.getCurrentLife() << " health" << endl;
+
+    // monster loses
+    if(monster.getCurrentLife() == 0) {
+        cout << "You defeat the " << monster.getName() << " and go on with your journey" << endl;
+        return END_ROUND;
+    }
+
+    // monster attacks
+    cout << "The " << monster.getName() << " deals " << monster.attack() << " damage to you and leaves you with " << player.getCurrentLife() << " health" << endl;
+
+    // player loses
+    if(player.getCurrentLife() == 0)
+    {
+        cout << "You lost to the dungeon" << endl;
+        return END_GAME;
+    }
+
+    return KEEP_PLAYING;
+}
+
 // game func
 void Game:: start() {
     int input;
     cout << *this->player << endl;
 
-    //first room
+    // first room
     Room* current_room = first_room;
-    // the monster in the room
-    Monster *current_monster = current_room->getMonster();
 
     // the game loop
-    while(true)
+    while (true)
     {
-        // monster and fire in current room
+        // monster and fire in the room
+        Monster *current_monster = current_room->getMonster();
         int fire = current_room->getFire();
 
         if(current_room->isEmpty())
@@ -126,7 +159,6 @@ void Game:: start() {
 
         // room is not empty
         else {
-
             if(fire != 0){
                 cout << "You sit by the campfire and heal " << fire << " health" << endl;
                 *this->player += fire;
@@ -137,72 +169,62 @@ void Game:: start() {
 
 
             // encountering a monster
-            else if(current_monster != nullptr)
+            if(current_monster != nullptr)
             {
+                // tell the player and the monster who they are fighting
                 this->player->set_fighting_who(current_monster);
                 current_monster->set_fighting_who(this->player);
 
                 //player is stronger
-                if(*this->player > *current_room->getMonster())
+                if(*this->player > *current_monster)
                 {
-                    cout << "You encounter a smaller monster" <<endl;
+                    cout << "You encounter a smaller " << current_monster->getName() << endl;
                 }
 
                 // equal
-                else if(*this->player == *current_room->getMonster())
+                else if(*this->player == *current_monster)
                 {
-                    cout << "You encounter a equally sized monster" <<endl;
+                    cout << "You encounter a equally sized " << current_monster->getName() << endl;
                 }
 
                 // monster is stronger
                 else
                 {
-                    cout << "You encounter a larger monster" <<endl;
+                    cout << "You encounter a larger " << current_monster->getName() << endl;
                 }
 
-                cout << *current_room->getMonster() << endl;
+                cout << *current_monster << endl;
 
-                //fight
-
-                //player attacks
-                *current_room->getMonster() -= *this->player;
-                cout << "You deal " << this->player->getDamage() << " damage to the monster and leave it with " << current_room->getMonster()->getCurrentLife() << " health" << endl;
-
-                if(current_room->getMonster()->getCurrentLife() != 0)
-                {
-                    //monster attacks
-                    *this->player -= *current_room->getMonster();
-                    cout << "The monster deals " << current_room->getMonster()->getDamage() << " damage to you and leaves you with " << this->player->getCurrentLife() << " health" << endl;
-
-                    //player loses
-                    if(this->player->getCurrentLife() == 0)
-                    {
-                        cout << "You lost to the dungeon" << endl;
-                        break;
-                    }
+                // fight until one of them dies
+                fight_status status = KEEP_PLAYING;
+                while(status == KEEP_PLAYING) {
+                    status = fightRound(*this->player, *current_monster);
                 }
 
-                cout << "You defeat the monster and go on with your journey" << endl;
+                // player lost
+                if(status == END_GAME) {
+                    break;
+                }
+
+                // otherwise player beat the monster and status is END_ROUND, continue to next room
             }
         }
 
-        //player continues to next room
-
-        //win
+        // won entire game
         if(current_room->isLastRoom())
         {
             cout << "The room continues and opens up to the outside. You won against the dungeon" << endl;
             break;
         }
 
-        //only 1 next room
+        // only 1 option for next room
         if(current_room->getEstimatedCountOfRooms() == 1)
         {
             cout << "You see a single corridor ahead of you labeled 0" << endl;
             cin >> input;
         }
 
-        //choose next room
+        // choose next room
         else
         {
             int last_room_index = current_room->getEstimatedCountOfRooms() - 1 ;

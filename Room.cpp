@@ -122,6 +122,10 @@ Room &Room::operator=(const Room &other) {
 //operator[] to give access to assign a room
 Room& Room::operator[](int index) {
 
+    if (index > this->roomCount) {
+
+    }
+
     if (index >= this->estimated_count_of_rooms)
     {
         int old_count = this->estimated_count_of_rooms;
@@ -177,7 +181,7 @@ int Room::getEstimatedCountOfRooms() const {
 
 //true if empty room
 bool Room::isEmpty() const {
-    return (this->getFire() == 0 && this->monster->getCurrentLife() == 0);
+    return (this->getFire() == 0 && this->monster == nullptr);
 }
 
 //true if no access to other rooms

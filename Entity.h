@@ -25,7 +25,6 @@ public:
     char *getName() const;
 
     virtual int attack() = 0; // pure virtual - no instance of Entity
-
     //current_life+=num
     void operator+= (int num);
     //current_life-= other.damage

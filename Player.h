@@ -9,7 +9,7 @@
 // abstract
 class Player : public Entity {
 protected:
-    Monster *fighting_who = nullptr; // who is the entity fighting at the moment
+    Monster *fighting_who = nullptr; // who is the player fighting at the moment
     int special_attack_wait = 0; // 0  - power is off and turns it on,  1 - can use the power because power is on, 2-4  power is off)
 
 public:
