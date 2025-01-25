@@ -52,17 +52,21 @@ void Entity::operator+= (int num) {
     }
 }
 //current_life-= other.damage
-void Entity::operator-= (const Entity& otherEntity){
+int Entity::operator-= (const Entity& otherEntity){
+    int original_life = this->current_life;
     this->current_life = this->current_life - otherEntity.damage;
 
     // min 0
     if(this->current_life < 0) {
         this->current_life = 0;
     }
+
+    return original_life - this->current_life; // return actual damage
 }
 
-void Entity::operator-= (const int damage)
+int Entity::operator-= (const int damage)
 {
+    int original_life = this->current_life;
     this->current_life = this->current_life - damage;
 
     // min 0
@@ -70,6 +74,7 @@ void Entity::operator-= (const int damage)
         this->current_life = 0;
     }
 
+    return original_life - this->current_life; // return actual damage
 }
 //print
 std::ostream& operator<<(std::ostream& os, const Entity& other) {
