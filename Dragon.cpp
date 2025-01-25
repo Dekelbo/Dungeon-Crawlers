@@ -5,6 +5,6 @@ Dragon::Dragon(int max_life, int damage) : Monster("Dragon", max_life, damage){}
 Dragon::~Dragon() {
 }
 
-void Dragon::attack() {
+int Dragon::attack() {
 
 }

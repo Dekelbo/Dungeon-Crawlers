@@ -32,6 +32,7 @@ public:
     void operator+= (int num);
     //current_life-= other.damage
     void operator-= (const Entity& otherEntity);
+    void operator-= (const int damage);
     //print
     friend std::ostream& operator<<(std::ostream& os, const Entity& other);
     //comp by current_life * damage

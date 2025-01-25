@@ -10,10 +10,9 @@ int Fighter::attacked() {
         return 0; // special power is on, deals with 0 damage
     }
     //special power is off
-    else {
-        *this -= *(this->fighting_who);
-        return this->fighting_who->getDamage();
-    }
+    *this -= *(this->fighting_who);
+     return this->fighting_who->getDamage();
+
 }
 
 int Fighter::attack() {

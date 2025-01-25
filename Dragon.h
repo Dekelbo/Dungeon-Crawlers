@@ -9,7 +9,7 @@ class Dragon : public Monster {
 public:
     Dragon(int max_life, int damage);
     virtual ~Dragon();
-    virtual void attack();
+    virtual int attack();
 };
 
 

@@ -60,6 +60,17 @@ void Entity::operator-= (const Entity& otherEntity){
         this->current_life = 0;
     }
 }
+
+void Entity::operator-= (const int damage)
+{
+    this->current_life = this->current_life - damage;
+
+    // min 0
+    if(this->current_life < 0) {
+        this->current_life = 0;
+    }
+
+}
 //print
 std::ostream& operator<<(std::ostream& os, const Entity& other) {
     os << other.name << " (" << other.current_life << "/" << other.max_life << ") - " << other.damage;
