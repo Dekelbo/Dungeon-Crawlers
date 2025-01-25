@@ -4,19 +4,24 @@ Sorcerer::Sorcerer(int max_life, int damage) : Player("Sorcerer", max_life, dama
 Sorcerer::~Sorcerer() {
 }
 
-int Sorcerer::attacked() {
-	*this -= *(this->fighting_who);
-	return this->fighting_who->getDamage();
+int Sorcerer::attackedByDragon() {
+	int actual_damage = this->fighting_who->getDamage() * 2; // dragon deals double damage to sorcerer
+	return (*this -= actual_damage);
+}
+
+int Sorcerer::attackedByGoblin() {
+	int actual_damage = (this->fighting_who->getDamage() + 1) / 2; // goblin deals half damage to sorcerer
+	return (*this -= actual_damage);
 }
 
 int Sorcerer::attack() {
     this->special_attack_wait = (this->special_attack_wait + 1) % WAITING_TIME; // update the turns - range 0-4
     if (special_attack_wait == 1) {
-		this->damage *= 2; // special power is on, double demage
+		this->damage *= 2; // special power is on, double damage
 	}
-	int demage_dealt = this->fighting_who->attacked();
+	int damage_dealt = this->fighting_who->attacked();
 	if (special_attack_wait == 1) {
-		this->damage /= 2; // already used special power, back to normal demage
+		this->damage /= 2; // already used special power, back to normal damage
 	}
-	return demage_dealt;
+	return damage_dealt;
 }

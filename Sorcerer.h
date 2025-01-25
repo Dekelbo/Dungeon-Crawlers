@@ -9,7 +9,8 @@ class Sorcerer : public Player {
 public:
     Sorcerer(int max_life, int damage);
     virtual ~Sorcerer();
-    virtual int attacked();
+    virtual int attackedByDragon();
+    virtual int attackedByGoblin();
     virtual int attack();
 };
 

@@ -8,9 +8,9 @@ class Fighter : public Player {
 public:
     Fighter(int max_life, int damage);
     virtual ~Fighter();
-    virtual int attacked();
-    virtual int attack();
-
+    virtual int attackedByDragon();
+    virtual int attackedByGoblin();
+	virtual int attack();
 };
 
 

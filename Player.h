@@ -13,7 +13,8 @@ protected:
 public:
     Player(const char* name, int max_life, int damage); // calls entity's constructor
     virtual ~Player();
-    virtual int attacked() = 0; // player is attacked - pure virtual
+    virtual int attackedByDragon() = 0; // player is attacked by a dragon - pure virtual
+    virtual int attackedByGoblin() = 0; // player is attacked by a goblin - pure virtual
     virtual int attack() = 0; // player attacks - pure virtual
 
 };
