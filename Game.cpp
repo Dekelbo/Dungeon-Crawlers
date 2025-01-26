@@ -56,8 +56,8 @@ void Game:: initGame(char *config_file_path) {
         char id[MAX_LINE_LENGTH];
         int fire;
         char monster_type;
-        int monster_max_life;
-        int damage;
+        int monster_max_life = -1;
+        int damage = -1;
 
         int parsed = sscanf(line, "%255s %d %c", id, &fire, &monster_type);
         if (parsed != 3) {
@@ -75,10 +75,6 @@ void Game:: initGame(char *config_file_path) {
         }
 
         // no monster - Room responsible to put nullptr in Monster
-        else if(monster_type == 'N') {
-            monster_max_life = -1;
-            damage = -1;
-        }
 
         //new room
         Room *room = new Room(id, fire, monster_type ,monster_max_life, damage);
