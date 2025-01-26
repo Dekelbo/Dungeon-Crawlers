@@ -2,7 +2,6 @@
 #include <cstring>
 #include <ostream>
 #include <iostream>
-
 #include "Fighter.h"
 #include "Sorcerer.h"
 using namespace std;
@@ -18,7 +17,11 @@ Game::Game(char player_type, int max_life, int damage, char *config_file_path) {
 
     char tmp_id[] = "-1";
     this->first_room = new Room(tmp_id, 0,'N', 0, 0);
-    this->initGame(config_file_path);
+    try {
+        this->initGame(config_file_path);
+    } catch(invalid_argument &e) {
+        throw e;
+    }
 }
 
 //destructor
@@ -88,11 +91,13 @@ void Game:: initGame(char *config_file_path) {
         for (int i = 0; i < id_len-1; i++)
         {
             int current_digit = id[i] - '0';
-            try {
-                current_room = &((*current_room)[current_digit]);
+            current_room = &((*current_room)[current_digit]);
+
+            // if the room has default values - path to room is wrong
+            if (strcmp(current_room->getId(), "-1") == 0) {
+                throw invalid_argument("Invalid Room");
             }
-            catch () {
-            }
+
         }
 
         // Add the new room to the appropriate subroom

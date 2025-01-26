@@ -1,10 +1,12 @@
-
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Entity.h"
 #include "Monster.h"
 
 #define WAITING_TIME 5 // can use special power once in 5 turns
+
+// Forward declaration
+class Monster;
 
 // abstract
 class Player : public Entity {

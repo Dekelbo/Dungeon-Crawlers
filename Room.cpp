@@ -96,15 +96,15 @@ Room &Room::operator=(const Room &other) {
     this->estimated_count_of_rooms = other.estimated_count_of_rooms;
 
     // Deep copy the monster
+    if(other.getMonster() == nullptr) {
+        this->monster = nullptr;
+    }
 
-    if (strcmp(other.getMonster()->getName(),"Dragon") == 0) {
+    else if (strcmp(other.getMonster()->getName(),"Dragon") == 0) {
         this->monster = new Dragon(*static_cast<Dragon*>(other.monster));
     }
-    else if (strcmp(other.getMonster()->getName(),"Goblin") == 0) {
+    else if(strcmp(other.getMonster()->getName(),"Goblin") == 0) {
         this->monster = new Goblin(*static_cast<Goblin*>(other.monster));
-    }
-    else {
-        this->monster = nullptr;
     }
 
     if (other.rooms) {
@@ -122,10 +122,6 @@ Room &Room::operator=(const Room &other) {
 //operator[] to give access to assign a room
 Room& Room::operator[](int index) {
 
-    if (index > this->roomCount) {
-
-    }
-
     if (index >= this->estimated_count_of_rooms)
     {
         int old_count = this->estimated_count_of_rooms;
@@ -133,8 +129,9 @@ Room& Room::operator[](int index) {
         this->roomCount++;
 
         Room* temp = new Room[this->estimated_count_of_rooms];
+        // Deep copy old rooms
         for (int i = 0; i < old_count; ++i) {
-            temp[i] = this->rooms[i]; // Deep copy old rooms
+            temp[i] = this->rooms[i];
         }
         delete[] this->rooms;
         this->rooms = temp;
@@ -143,7 +140,7 @@ Room& Room::operator[](int index) {
 
     // Initialize a new room if it doesn't exist
     if (strcmp(this->rooms[index].id, "-1") == 0) {
-        this->rooms[index] = Room(); // Create a new room
+        this->rooms[index] = *new Room(); // Create a new room
     }
 
     return this->rooms[index];
