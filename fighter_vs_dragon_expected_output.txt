@@ -1,0 +1,20 @@
+Fighter (100/100) - 5
+You arrive to an empty room
+You see a single corridor ahead of you labeled 0
+Fighter (100/100) - 5
+You encounter a smaller Dragon
+Dragon (35/35) - 10
+You deal 5 damage to the Dragon and leave it with 30 health
+The Dragon deals 0 damage to you and leaves you with 100 health
+You deal 5 damage to the Dragon and leave it with 25 health
+The Dragon deals 5 damage to you and leaves you with 95 health
+You deal 5 damage to the Dragon and leave it with 20 health
+The Dragon deals 5 damage to you and leaves you with 90 health
+You deal 5 damage to the Dragon and leave it with 15 health
+The Dragon deals 5 damage to you and leaves you with 85 health
+You deal 5 damage to the Dragon and leave it with 10 health
+The Dragon deals 0 damage to you and leaves you with 85 health
+You deal 5 damage to the Dragon and leave it with 5 health
+The Dragon deals 5 damage to you and leaves you with 80 health
+You deal 5 damage to the Dragon and leave it with 0 health
+You defeat the Dragon and go on with your journey
